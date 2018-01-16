@@ -1,0 +1,18 @@
+<!-- xing.com - Signup check username is free function -->
+<module>
+    <site>
+        <name>xing.com</name>
+        <url><![CDATA[http://www.xing.com/app/signup?op=minireg_validate]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[email=<ACCOUNT>]]></postParameters>
+        <headers>Accept-Language: en-gb,X-Requested-With: XMLHttpRequest</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>already registered</successmatch>
+        <negativematch></negativematch>
+        <date>13/09/2012</date>
+        <version>2</version>
+        <author>CJR</author>
+        <category>social</category>
+    </site>
+</module>

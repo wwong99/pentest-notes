@@ -1,0 +1,19 @@
+<!-- blogspot.com - Looks for USER.blogspot.com -->
+
+<module>
+    <site>
+        <name>blogspot.com (Username)</name>
+        <url><![CDATA[http://<ACCOUNT>.blogspot.com]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Powered by</successmatch>
+        <negativematch>Blog not found</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>social</category>
+    </site>
+</module>

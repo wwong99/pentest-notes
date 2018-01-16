@@ -1,0 +1,19 @@
+<!-- families.com - Looks for http://www.families.com/USER -->
+
+<module>
+    <site>
+        <name>families.com (Username)</name>
+        <url><![CDATA[http://www.families.com/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Recent Photos</successmatch>
+        <negativematch>Page not found</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>forums</category>
+    </site>
+</module>

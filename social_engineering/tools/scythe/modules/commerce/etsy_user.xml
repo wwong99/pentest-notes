@@ -1,0 +1,19 @@
+<!-- etsy.com - Looks for http://www.etsy.com/people/USER -->
+
+<module>
+    <site>
+        <name>etsy.com (Username)</name>
+        <url><![CDATA[http://www.etsy.com/people/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Joined</successmatch>
+        <negativematch>Sorry, the user you are looking for does not exist.</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>commerce</category>
+    </site>
+</module>

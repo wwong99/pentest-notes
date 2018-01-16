@@ -1,0 +1,18 @@
+<!-- Twitter.com - Forgot password function -->
+<module>
+    <site>
+        <name>Twitter.com (Email/Phone)</name>
+        <url><![CDATA[http://twitter.com/account/valid_email_or_phone?emailorphone=<ACCOUNT>&value=<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Looks good!</successmatch>
+        <negativematch>Email or phone is invalid</negativematch>
+        <date>13/09/2012</date>
+        <version>2</version>
+        <author>CJR</author>
+        <category>social</category>
+    </site>
+</module>

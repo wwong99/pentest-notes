@@ -1,0 +1,19 @@
+<!-- goodreads.com - Looks for http://www.goodreads.com/USER -->
+
+<module>
+    <site>
+        <name>goodreads.com (Username)</name>
+        <url><![CDATA[http://www.goodreads.com/<ACCOUNT>/]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Recent Updates</successmatch>
+        <negativematch>Page Not Found</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>blogs</category>
+    </site>
+</module>

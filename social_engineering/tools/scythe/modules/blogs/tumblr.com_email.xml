@@ -1,0 +1,18 @@
+<!-- tumblr.com - Signup check existing email function -->
+<module>
+    <site>
+        <name>tumblr.com</name>
+        <url><![CDATA[https://www.tumblr.com/svc/account/register]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[user%5Bemail%5D=<ACCOUNT>&user%5Bpassword%5D=<RANDOM>&tumblelog%5Bname%5D=<RANDOM>&action=signup_account]]></postParameters>
+        <headers>Content-Type: application/x-www-form-urlencoded; charset=UTF-8</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>email address is already in use</successmatch>
+        <negativematch></negativematch>
+        <date>14/09/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>blogs</category>
+    </site>
+</module>

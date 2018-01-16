@@ -1,0 +1,19 @@
+<!-- ebay.com - Looks for ebay.com/usr/USER -->
+
+<module>
+    <site>
+        <name>ebay.com (Username)</name>
+        <url><![CDATA[http://www.ebay.com/usr/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Feedback score:</successmatch>
+        <negativematch>The User ID you entered was not found.</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>commerce</category>
+    </site>
+</module>

@@ -1,0 +1,19 @@
+<!-- zooomr.com - Looks for http://www.zooomr.com/photos/USER/ -->
+
+<module>
+    <site>
+        <name>zooomr.com (Username)</name>
+        <url><![CDATA[http://www.zooomr.com/photos/<ACCOUNT>/]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Subscribe to</successmatch>
+        <negativematch>This Page was Not Found</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>media</category>
+    </site>
+</module>

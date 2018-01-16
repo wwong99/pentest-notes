@@ -1,0 +1,19 @@
+<!-- ustream.com - Looks for http://www.ustream.tv/user/USER -->
+
+<module>
+    <site>
+        <name>ustream.com (Username)</name>
+        <url><![CDATA[http://www.ustream.tv/user/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Joined:</successmatch>
+        <negativematch>An error occured</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>media</category>
+    </site>
+</module>

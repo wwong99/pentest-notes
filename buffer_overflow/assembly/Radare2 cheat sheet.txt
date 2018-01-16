@@ -1,0 +1,162 @@
+﻿Commands prefaced by “[0x00000000]>” or “:” are meant to be entered on the r2 cmd prompt, the latter accessed from Visual mode using “:”.
+Radare config file
+Make a sane config file:
+$ vim ~/.radare2rc
+e scr.wheel=false                #turns off mouse fuckery
+e stack.size=114                #increases visible stack size in visual mode
+e stack.bytes=false                #shows words on stack instead of bytes
+
+
+Debugging binary with STDIO/Args
+Rarun2 config file format for debug target:
+$ vim ./binary.rr2
+#!/usr/bin/env rarun2
+program=binary
+stdio=/dev/pts/#                #both io to one pty
+stdin=/dev/pts/#                #just stdin broken out
+stdout=/dev/pts/#                #just stdout broken out
+arg0=”./binary”
+arg1=”argument 1”
+
+
+Terminal config for rarun2 target:
+$ tty
+/dev/pts/3                        #copy this to rarun2 config above
+$ clear; sleep 9999999999999999999999999;
+
+
+Running binary with redirected STDIO via rarun2 + config:
+$ r2 -d rarun2 -R ./binary.rr2
+
+
+Interactive Debugging
+Analyze binary for functions, autonaming them:
+[0x00000000]> aaa
+
+
+List found functions and imports:
+[0x00000000]> afl
+[0x00000000]> afll                #long list w/more info
+
+
+
+
+Set breakpoint:
+[0x00000000]> db main
+[0x00000000]> db 0x400c00
+[0x00000000]> db fcn.40e00d
+
+
+Continue Execution:
+[0x00000000]> dc
+
+
+Continue until next return:
+:dcr
+
+
+Print stack trace:
+:dbt
+
+
+Grepping output:
+:pd 200~test                #prints next 200 disassembled instructions and searches for ‘test’
+
+
+Setting lots of breakpoints:
+:bp $$ @@=`pd 2000~test`
+Visual Mode
+Visual mode commands will be represented by [c] where “c” is the key to press while in visual mode.  Commands with “:” are entered from command mode, entered with “:” and exited with <enter>.
+
+
+Enter visual mode:
+[0x00000000]> V
+
+
+Cycle to debug view:
+[pp]
+
+
+Single step-into:
+[s]
+
+
+Single step-over:
+[S]
+
+
+Flag/comment/function view
+[_]
+* Type to filter for symbol/flag
+* <enter> to jump to address
+
+
+Cursor mode [toggle on/off]
+[c]
+* <Tab> to Switch view between stack/registers/assembly
+* <b> to set breakpoint
+* <;> to make a comment on current line\
+* <hjkl> to navigate disassembly
+
+
+XREFs menu:
+[x]
+* Use when sought to address with XREF
+* Displays menu of .text/[other segment] locations which reference current seek address
+* Press <enter> to jump to XREF address
+
+
+Follow jumps/calls (inspect only, not execute):
+[enter]
+* Current seek address must be at instruction (top line of assembly in Visual mode)
+
+
+Rename current function:
+:afn funcname
+
+
+Rename current function’s variables:
+Base pointer based vars:
+:afvb -0x8 name type
+* Use -0x# to specify offset from BP
+Register based vars:
+:afvr reg name type
+
+
+Save project:
+:Ps projectName
+
+
+Load Project:
+:Po projectName
+
+
+Graph Mode:
+[V]
+* Must be sought to function’s first address
+* Use ‘hjkl’ keys to navigate
+* Use +/- to zoom in/out
+* Use <Tab>, <t>, <f> to switch focus between blocks and follow jumps
+* Use <p> to cycle address/disassembly display
+* <q> to quit graph mode
+
+
+Printing/Inspecting data:
+:pxq @ 0x7ffeff4741d8        #print hex quadwords (8-byte) at address
+:pxw @ 0x7ffeff4741d8        #print hex doublewords (4-byte) at address
+:ps @ rbp - 0x28                #print string at 32-bit pointer
+:pS @ [rbp - 0x8]                #print string at 64-bit double pointer
+:pf qqS @ rsp                        #print data with format [quad][quad][64b String] at rsp
+:drr                                #reveal register references (telescoping)
+
+
+Writing Data
+Writing data to disk requires launching radare with the write flag [-w] supplied, and cannot be used with debugging [-d] mode.  Writing to registers or memory however does not.
+:dr eax=rbp-0x8                #write rbp-0x8 to eax register
+:wx 9090 @ main+0x10        #write hex bytes @ memory address
+:wa test al,al                        #write assembly at currently sought memory address
+
+
+
+
+https://monosource.gitbooks.io/radare2-explorations/content/intro/navigation.html

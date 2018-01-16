@@ -1,0 +1,19 @@
+<!-- wefollow.com - Looks for http://wefollow.com/USER -->
+
+<module>
+    <site>
+        <name>wefollow.com (Username)</name>
+        <url><![CDATA[http://www.wefollow.com/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Followers</successmatch>
+        <negativematch>the page you are looking for does not exist</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>social</category>
+    </site>
+</module>

@@ -1,0 +1,19 @@
+<!-- xfire.com - Looks for http://www.xfire.com/profile/USER -->
+
+<module>
+    <site>
+        <name>xfire.com (Username)</name>
+        <url><![CDATA[http://www.xfire.com/profile/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Game Library</successmatch>
+        <negativematch>Try using the header to get back on track</negativematch>
+        <date>05/19/2013</date>
+        <version>1</version>
+        <author>anonymous</author>
+        <category>games</category>
+    </site>
+</module>

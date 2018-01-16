@@ -1,0 +1,62 @@
+<!-- 
+Yahoo.com registration email enumeration 
+(yahoo.com, ymail.com, rocketmail.com, yahoo.co.uk)
+-->
+<module>
+    <site>
+        <name>Yahoo (yahoo.com email)</name>
+        <url><![CDATA[https://na.edit.yahoo.com/reg_json?PartnerName=yahoo_default&RequestVersion=1&AccountID=<ACCOUNT>@yahoo.com&ApiName=ValidateFields&intl=us]]></url>
+        <method>GET</method>
+        <headers>Accept-Language: en-gb</headers>
+        <successmatch>"ErrorCode":"100000"</successmatch>
+        <negativematch>"ResultCode":"SUCCESS"</negativematch>
+        <errormatch>Empty response from server</errormatch>
+        <message>Blocking reported using this module, wait time suggested</message>
+        <date>08/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>
+    <site>
+        <name>Yahoo (ymail.com email)</name>
+        <url><![CDATA[https://na.edit.yahoo.com/reg_json?PartnerName=yahoo_default&RequestVersion=1&AccountID=<ACCOUNT>@ymail.com&ApiName=ValidateFields&intl=us]]></url>
+        <method>GET</method>
+        <headers>Accept-Language: en-gb</headers>
+        <successmatch>"ErrorCode":"100000"</successmatch>
+        <negativematch>"ResultCode":"SUCCESS"</negativematch>
+        <errormatch>Empty response from server</errormatch>
+        <message>Blocking reported using this module, wait time suggested</message>
+        <date>08/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>
+    <site>
+        <name>Yahoo (rocketmail.com email)</name>
+        <url><![CDATA[https://na.edit.yahoo.com/reg_json?PartnerName=yahoo_default&RequestVersion=1&AccountID=<ACCOUNT>@rocketmail.com&ApiName=ValidateFields&intl=us]]></url>
+        <method>GET</method>
+        <headers>Accept-Language: en-gb</headers>
+        <successmatch>"ErrorCode":"100000"</successmatch>
+        <negativematch>"ResultCode":"SUCCESS"</negativematch>
+        <errormatch>Empty response from server</errormatch>
+        <message>Blocking reported using this module, wait time suggested</message>
+        <date>08/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>
+    <site>
+        <name>Yahoo (yahoo.co.uk email)</name>
+        <url><![CDATA[https://edit.europe.yahoo.com/reg_json?PartnerName=yahoo_default&RequestVersion=1&AccountID=<ACCOUNT>@yahoo.co.uk&ApiName=ValidateFields&intl=uk]]></url>
+        <method>GET</method>
+        <headers>Accept-Language: en-gb</headers>
+        <successmatch>"ErrorCode":"100000"</successmatch>
+        <negativematch>"ResultCode":"SUCCESS"</negativematch>
+        <errormatch>Empty response from server</errormatch>
+        <message>Blocking reported using this module, wait time suggested</message>
+        <date>08/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>    
+</module>

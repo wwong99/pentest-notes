@@ -1,0 +1,45 @@
+<!--
+    Examples information for users looking to create modules
+
+    note: Please only use settings such as requestCookie or requestCSRF
+    if required as it increases the required traffic and slows modules down.
+
+    Values that include <> or other chars that cause issues within XML chould
+    be protected inside a CDATA block (see examples)
+-->
+
+<module>
+    <site>
+        <name>Example Module GET</name>
+        <url><![CDATA[http://www.example.com/index.php?reg=<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters><![CDATA[]]></postParameters>
+        <headers>Referer: http://www.example.com,Example: abcd</headers>
+        <requestCookie></requestCookie>
+        <requestCSRF>
+            <csrf_url><![CDATA[http://www.example.com/index.php]]></csrf_url>
+            <csrf_regex><![CDATA[csrfToken" value="(\w*)">]]></csrf_regex>
+        </requestCSRF>
+        <successmatch>password incorrect</successmatch>
+        <negativematch>Invalid email or username</negativematch>
+        <date>08/09/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>example</category>
+    </site>
+    <site>
+        <name>Example Module POST</name>
+        <url><![CDATA[http://www.example.com/index.php]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[reg=<ACCOUNT>&pwd=<RANDOM>&submit=]]></postParameters>
+        <headers>Referer: http://www.example.com,Example: abcd</headers>
+        <requestCookie>True</requestCookie>
+        <requestCSRF></requestCSRF>
+        <successmatch>password incorrect</successmatch>
+        <negativematch>Invalid email or username</negativematch>
+        <date>08/09/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>example</category>
+    </site>
+</module>

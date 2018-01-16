@@ -1,0 +1,31 @@
+----------LINUX----------
+Create named pipe
+    cd /tmp
+    mknod [name] p
+
+Listener to Client-----
+    nc -nvlp [local port] 0<[named pipe] | nc [target IP] [port] | tee [named pipe]
+        Sends packets from [local port] to a nc client connected to [target IP] on [port]
+Listener to Listener-----
+    nc -nvlp [local port 1] 0<[named pipe] | nc -nvlp [local port 2] | tee [named pipe]
+        Sends packets from any connection on [local port 1] to any connection on [local port 2]
+Client to Client-----
+    nc [previous hop] [port 1] 0<[named pipe] | nc [next hop] [port 2] | tee [named pipe]
+        Sends packets from connection to [previous hop] on [port 1] to [next hop] on [port 2]
+        
+----------WINDOWS----------
+Enter temporary directory to create .bat files
+    cd C:\temp
+
+Listener to Client-----
+    echo nc [target IP] [port] > relay.bat
+    nc -lp [local port] -e relay.bat
+        Sends packets from [local port] to a nc client connected to [target IP] on [port]
+Listener to Listener-----
+    echo nc -lp [local port 2] > relay.bat
+    nc -lp [local port 1] -e relay.bat
+        Sends packets from any connection on [local port 1] to any connection on [local port 2]
+Client to Client-----
+    echo nc [next hop] [port 2] > relay.bat
+    nc [previous hop] [port 1] -e relay.bat
+        Sends packets from connection to [previous hop] on [port 1] to [next hop] on [port 2]

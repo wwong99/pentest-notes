@@ -1,0 +1,19 @@
+<!-- photobucket.com - Looks for www.photobucket.com/USER -->
+
+<module>
+    <site>
+        <name>photobucket.com (Username)</name>
+        <url><![CDATA[http://www.photobucket.com/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Feed for this album</successmatch>
+        <negativematch>Page not found</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>media</category>
+    </site>
+</module>

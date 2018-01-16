@@ -1,0 +1,20 @@
+<!-- squidoo.com - Looks for http://www.squidoo.com/lensmasters/USER -->
+
+<module>
+    <site>
+        <name>squidoo.com (Username)</name>
+        <url><![CDATA[http://www.squidoo.com/lensmasters/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>We're looking forward to something great happening soon</successmatch>
+        <successmatch>Joined:</successmatch>
+        <negativematch>I'm sorry, but we couldn't find that!</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>blogs</category>
+    </site>
+</module>

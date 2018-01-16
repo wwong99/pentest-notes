@@ -1,0 +1,19 @@
+<!-- yfrog.com - Looks for http://twitter.yfrog.com/user/USER/profile -->
+
+<module>
+    <site>
+        <name>yfrog.com (Username)</name>
+        <url><![CDATA[http://twitter.yfrog.com/user/<ACCOUNT>/profile]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Timeline Search</successmatch>
+        <negativematch>Something went wrong ... bad bad frog</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>media</category>
+    </site>
+</module>

@@ -1,0 +1,19 @@
+<!-- Wordpress.com - Logon user enumeration issue -->
+<module>
+    <site>
+        <name>Wordpress.com</name>
+        <url><![CDATA[https://wordpress.com/wp-login.php]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[log=<ACCOUNT>&pwd=<RANDOM>&testcookie=1&redirect_to=http%3A%2F%2Fwordpress.com%2F&submit=]]></postParameters>
+        <headers></headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>The password you entered for the email or username</successmatch>
+        <negativematch>Invalid email or username</negativematch>
+        <errormatch>You have exceeded the login limit</errormatch>
+        <date>13/09/2012</date>
+        <version>2</version>
+        <author>CJR</author>
+        <category>blogs</category>
+    </site>
+</module>

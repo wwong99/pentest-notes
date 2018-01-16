@@ -1,0 +1,19 @@
+<!-- en.wikipedia.org - Looks for en.wikipedia.org/wiki/User:USER -->
+
+<module>
+    <site>
+        <name>wikipedia.org (Username)</name>
+        <url><![CDATA[http://en.wikipedia.org/wiki/User:<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>This page was last modified</successmatch>
+        <negativematch>is not registered</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>forums</category>
+    </site>
+</module>

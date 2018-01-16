@@ -1,0 +1,19 @@
+<!-- cardcloud.com - Looks for http://www.cardcloud.com/USER -->
+
+<module>
+    <site>
+        <name>cardcloud.com (Username)</name>
+        <url><![CDATA[http://www.cardcloud.com/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Download vCard</successmatch>
+        <negativematch>We couldn't find the page you're looking for</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>social</category>
+    </site>
+</module>

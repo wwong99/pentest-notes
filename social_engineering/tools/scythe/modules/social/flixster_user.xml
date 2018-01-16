@@ -1,0 +1,19 @@
+<!-- flixster.com - Looks for http://www.flixster.com/user/USER -->
+
+<module>
+    <site>
+        <name>flixster.com (Username)</name>
+        <url><![CDATA[http://community.flixster.com/user/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Add as Friend</successmatch>
+        <negativematch>This profile is inaccessible, or the user has cancelled their account.</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>social</category>
+    </site>
+</module>

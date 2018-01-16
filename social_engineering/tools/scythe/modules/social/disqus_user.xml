@@ -1,0 +1,19 @@
+<!-- disqus.com - Looks for http://disqus.com/USER -->
+
+<module>
+    <site>
+        <name>disqus.com (Username)</name>
+        <url><![CDATA[http://disqus.com/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Activity</successmatch>
+        <negativematch>Sorry, we couldn't find that page</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>social</category>
+    </site>
+</module>

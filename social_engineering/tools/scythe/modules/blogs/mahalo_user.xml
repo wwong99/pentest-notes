@@ -1,0 +1,19 @@
+<!-- mahalo.com - Looks for http://www.mahalo.com/member/USER -->
+
+<module>
+    <site>
+        <name>mahalo.com (Username)</name>
+        <url><![CDATA[http://www.mahalo.com/member/<ACCOUNT>/]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Profile</successmatch>
+        <negativematch>Sorry, we couldn't find the page you were looking for.</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>blogs</category>
+    </site>
+</module>

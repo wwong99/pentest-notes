@@ -1,0 +1,19 @@
+<!-- last.fm - Looks for http://www.last.fm/user/USER -->
+
+<module>
+    <site>
+        <name>last.fm (Username)</name>
+        <url><![CDATA[http://www.last.fm/user/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Last seen:</successmatch>
+        <negativematch>User not found</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>media</category>
+    </site>
+</module>

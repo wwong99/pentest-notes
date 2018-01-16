@@ -1,0 +1,19 @@
+<!-- gather.com - Looks for http://USER.gather.com/ -->
+
+<module>
+    <site>
+        <name>gather.com (Username)</name>
+        <url><![CDATA[http://<ACCOUNT>.gather.com]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>You are not connected to</successmatch>
+        <negativematch>The group or member URL you're trying to view does not exist.</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>social</category>
+    </site>
+</module>

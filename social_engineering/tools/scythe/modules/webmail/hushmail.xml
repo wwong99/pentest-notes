@@ -1,0 +1,66 @@
+<!-- 
+hushmail.com registration email enumeration 
+(hushmail.com, hushmail.me, hush.com, hush.ai, mac.hush.com)
+-->
+<module>
+    <site>
+        <name>Hushmail (hushmail.com email)</name>
+        <url><![CDATA[https://www.hushmail.com/signup/create]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[hush_username=<ACCOUNT>&hush_domain=hushmail.com]]></postParameters>
+        <headers>Accept-Language: en-us</headers>
+        <successmatch><![CDATA[is not available</div>]]></successmatch>
+        <date>09/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>
+    <site>
+        <name>Hushmail (hushmail.me email)</name>
+        <url><![CDATA[https://www.hushmail.com/signup/create]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[hush_username=<ACCOUNT>&hush_domain=hushmail.me]]></postParameters>
+        <headers>Accept-Language: en-us</headers>
+        <successmatch><![CDATA[is not available</div>]]></successmatch>
+        <date>09/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>
+    <site>
+        <name>Hushmail (hush.com email)</name>
+        <url><![CDATA[https://www.hushmail.com/signup/create]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[hush_username=<ACCOUNT>&hush_domain=hush.com]]></postParameters>
+        <headers>Accept-Language: en-us</headers>
+        <successmatch><![CDATA[is not available</div>]]></successmatch>
+        <date>09/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>
+    <site>
+        <name>Hushmail (hush.ai email)</name>
+        <url><![CDATA[https://www.hushmail.com/signup/create]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[hush_username=<ACCOUNT>&hush_domain=hush.ai]]></postParameters>
+        <headers>Accept-Language: en-us</headers>
+        <successmatch><![CDATA[is not available</div>]]></successmatch>
+        <date>09/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>
+    <site>
+        <name>Hushmail (mac.hush.com email)</name>
+        <url><![CDATA[https://www.hushmail.com/signup/create]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[hush_username=<ACCOUNT>&hush_domain=mac.hush.com]]></postParameters>
+        <headers>Accept-Language: en-us</headers>
+        <successmatch><![CDATA[is not available</div>]]></successmatch>
+        <date>09/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>    
+</module>

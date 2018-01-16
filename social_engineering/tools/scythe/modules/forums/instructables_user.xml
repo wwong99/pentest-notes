@@ -1,0 +1,19 @@
+<!-- instructables.com - Looks for http://www.instructables.com/member/USER/ -->
+
+<module>
+    <site>
+        <name>instructables.com (Username)</name>
+        <url><![CDATA[http://www.instructables.com/member/<ACCOUNT>/]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Joined:</successmatch>
+        <negativematch>ERROR 400: no member:</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>forums</category>
+    </site>
+</module>

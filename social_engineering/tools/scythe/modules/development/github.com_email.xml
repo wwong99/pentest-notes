@@ -1,0 +1,26 @@
+<!-- github.com - Email registration check
+
+Note: due to the way github works, invlaid email addresses may
+appear as false positives.
+-->
+<module>
+    <site>
+        <name>Github.com (Email)</name>
+        <url><![CDATA[https://github.com/signup_check/email]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[value=<ACCOUNT>]]></postParameters>
+        <headers><![CDATA[X-CSRF-Token: <CSRFTOKEN>, Accept-Language: en-us, Content-Type: application/x-www-form-urlencoded; charset=UTF-8]]></headers>
+        <requestCookie>true</requestCookie>
+        <requestCSRF>
+            <csrf_url><![CDATA[https://github.com/signup/free]]></csrf_url>
+            <csrf_regex><![CDATA[<meta content="(.*)" name="csrf-token"]]></csrf_regex>
+        </requestCSRF>
+        <successmatch>Email is invalid or already taken</successmatch>
+        <negativematch></negativematch>
+        <message>Due to the way github works, invlaid email addresses may appear as false positives</message>
+        <date>16/09/2012</date>
+        <version>2</version>
+        <author>CJR</author>
+        <category>development</category>
+    </site>
+</module>

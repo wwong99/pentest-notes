@@ -1,0 +1,19 @@
+<!-- kaboodle.com - Looks for http://www.kaboodle.com/USER -->
+
+<module>
+    <site>
+        <name>kaboodle.com (Username)</name>
+        <url><![CDATA[http://www.kaboodle.com/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Followers</successmatch>
+        <negativematch>Sorry, the user does not exist.</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>commerce</category>
+    </site>
+</module>

@@ -1,0 +1,19 @@
+<!-- newsvine.com - Looks for http://USER.newsvine.com/ -->
+
+<module>
+    <site>
+        <name>newsvine.com (Username)</name>
+        <url><![CDATA[http://<ACCOUNT>.newsvine.com]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Member Since:</successmatch>
+        <negativematch>Oh my. There doesn't seem to be a page here anymore.</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>blogs</category>
+    </site>
+</module>

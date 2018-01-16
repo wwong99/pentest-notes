@@ -1,0 +1,17 @@
+<!-- GMail - Google mail address registration -->
+
+<module>
+    <site>
+        <name>GMail (username)</name>
+        <url><![CDATA[https://accounts.google.com/InputValidator?resource=signup&service=mail]]></url>
+        <method>POST</method>
+        <postParameters><![CDATA[{"input01":{"Input":"GmailAddress","GmailAddress":"<ACCOUNT>","FirstName":"","LastName":""},"Locale":"en"}]]></postParameters>
+        <headers>Content-Type: application/json; charset=UTF-8,Accept-Language: en-us</headers>
+        <successmatch>Someone already has that username</successmatch>
+        <negativematch>"Valid":"true"</negativematch>
+        <date>08/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>email</category>
+    </site>
+</module>

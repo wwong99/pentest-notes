@@ -1,0 +1,19 @@
+<!-- linkedin.com - Looks for www.linkedin.com/in/USER -->
+
+<module>
+    <site>
+        <name>linkedin.com (Username)</name>
+        <url><![CDATA[http://www.linkedin.com/in/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Overview</successmatch>
+        <negativematch>Profile Not Found</negativematch>
+        <date>10/12/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>social</category>
+    </site>
+</module>

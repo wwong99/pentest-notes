@@ -1,0 +1,19 @@
+<!-- funnyordie.com - Looks for http://www.funnyordie.com/USER -->
+
+<module>
+    <site>
+        <name>funnyordie.com (Username)</name>
+        <url><![CDATA[http://http://www.funnyordie.com/<ACCOUNT>/]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>MEMBER</successmatch>
+        <negativematch>We're sorry but we can't find that webpage.</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>media</category>
+    </site>
+</module>

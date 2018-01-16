@@ -1,0 +1,16 @@
+<!-- Reddit.com new user username check -->
+
+<module>
+    <site>
+        <name>Reddit.com (username)</name>
+        <url><![CDATA[http://www.reddit.com/api/username_available.json?user=<ACCOUNT>]]></url>
+        <method>GET</method>
+        <headers>Accept-Language: en-gb</headers>
+        <successmatch>false</successmatch>
+        <negativematch>true</negativematch>
+        <date>08/10/2012</date>
+        <version>1</version>
+        <author>CJR</author>
+        <category>social</category>
+    </site>
+</module>

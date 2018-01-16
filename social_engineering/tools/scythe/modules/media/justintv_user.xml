@@ -1,0 +1,19 @@
+<!-- justin.tv - Looks for http://www.justin.tv/USER -->
+
+<module>
+    <site>
+        <name>justin.tv (Username)</name>
+        <url><![CDATA[http://www.justin.tv/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>'s channel</successmatch>
+        <negativematch>Sorry, we couldn't find that stream.</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>media</category>
+    </site>
+</module>

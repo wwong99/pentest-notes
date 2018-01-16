@@ -1,0 +1,19 @@
+<!-- soundcloud.com - Looks for http://soundcloud.com/USER -->
+
+<module>
+    <site>
+        <name>soundcloud.com (Username)</name>
+        <url><![CDATA[http://soundcloud.com/<ACCOUNT>]]></url>
+        <method>GET</method>
+        <postParameters></postParameters>
+        <headers>Accept-Language: en-gb</headers>
+        <requestCookie>False</requestCookie>
+        <requestCSRF>False</requestCSRF>
+        <successmatch>Sounds from</successmatch>
+        <negativematch>Oops, looks like we can't find that page!</negativematch>
+        <date>10/13/2012</date>
+        <version>1</version>
+        <author>WiK</author>
+        <category>media</category>
+    </site>
+</module>
