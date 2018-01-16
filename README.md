@@ -4,14 +4,11 @@ This repo contains all my penetration testing study notes, penetration testing t
 
 ## Table of Contents
 
-.
  * [bookmarks.md](./bookmarks.md)
  * [buffer_overflow](./buffer_overflow)
-   * [643-fixed](./buffer_overflow/643-fixed)
    * [assembly](./buffer_overflow/assembly)
      * [course_notes.md](./buffer_overflow/assembly/course_notes.md)
      * [debuging.md](./buffer_overflow/assembly/debuging.md)
-     * [images](./buffer_overflow/assembly/images)
    * [buffer_overflows.md](./buffer_overflow/buffer_overflows.md)
    * [scripts](./buffer_overflow/scripts)
      * [disable_linux_security.sh](./buffer_overflow/scripts/disable_linux_security.sh)
@@ -45,6 +42,7 @@ This repo contains all my penetration testing study notes, penetration testing t
      * [vulscan](./enumeration/tools/vulscan)
    * [vulnerability_scanning.md](./enumeration/vulnerability_scanning.md)
  * [exploitation](./exploitation)
+   * [643-fixed](./exploitation/643-fixed)
    * [computer_network_exploits.md](./exploitation/computer_network_exploits.md)
    * [downloadproxy.ps1](./exploitation/downloadproxy.ps1)
    * [File_Transfers.md](./exploitation/File_Transfers.md)
@@ -65,9 +63,6 @@ This repo contains all my penetration testing study notes, penetration testing t
    * [wget-ps1](./exploitation/wget-ps1)
    * [wget-vbs](./exploitation/wget-vbs)
    * [wget.vbs](./exploitation/wget.vbs)
- * [images](./images)
- * [LICENSE](./LICENSE)
- * [md_tree.sh](./md_tree.sh)
  * [networking](./networking)
    * [bpf_syntax.md](./networking/bpf_syntax.md)
    * [networking_concept.md](./networking/networking_concept.md)
