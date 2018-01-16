@@ -290,3 +290,45 @@ Reconnaissance
         <DT><A HREF="http://pentestmonkey.net/blog/post-exploitation-without-a-tty" ADD_DATE="1511791202" LAST_MODIFIED="1511791202">Internet Security by Zscaler</A>
     </DL><p>
 </DL>
+
+
+
+https://github.com/frizb
+
+Jim Wilbur's Blog
+OSCP Links
+This is a list of links I used while studying for the Offensive Security Certified Professional (OSCP) exam.
+Reverse Shell Cheat Sheet – http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+Offensive Security’s Exploit Database Archive – https://www.exploit-db.com/
+OSCP resource gold mine – https://backdoorshell.gitbooks.io/oscp-useful-links/content/
+0x0 Exploit Tutorial: Buffer Overflow – Vanilla EIP Overwrite – http://www.primalsecurity.net/0x0-exploit-tutorial-buffer-overflow-vanilla-eip-overwrite-2/
+Basic Linux Privilege Escalation – https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation
+Vulnerable by Design – https://vulnhub.com
+Elevating privileges by exploiting weak folder permissions – www.greyhathacker.net/?p=738/
+NSEDoc Reference – https://nmap.org/nsedoc/
+Encyclopaedia Of Windows Privilege Escalation – Brett Moore – www.youtube.com/watch?v=kMG8IsCohHA
+Windows Privilege Escalation Fundamentals – http://www.fuzzysecurity.com/tutorials/16.html
+0daysecurity Enumeration – http://0daysecurity.com/penetration-testing/enumeration.html
+Free Password Hash Cracker – https://crackstation.net/
+LinEnum – https://github.com/rebootuser/LinEnum
+Linux_Exploit_Suggester – https://github.com/PenturaLabs/Linux_Exploit_Suggester
+Windows-Exploit-Suggester – https://github.com/GDSSecurity/Windows-Exploit-Suggester
+Windows Privilege Escalation – a cheatsheet – http://it-ovid.blogspot.com/2012/02/windows-privilege-escalation.html
+unix-privesc-check – http://pentestmonkey.net/tools/audit/unix-privesc-check
+windows-privesc-check – http://pentestmonkey.net/tools/windows-privesc-check
+John The Ripper Hash Formats – http://pentestmonkey.net/cheat-sheet/john-the-ripper-hash-formats
+Microsoft Privilege Escalation – www.toshellandback.com/2015/11/24/ms-priv-esc/
+Kali linux Commands Complete List from A to Z – https://geekviews.tech/kali-linux-commands-complete-list/
+
+
+Resources:
+Some resources I used for this challenge:
+http://www.fuzzysecurity.com/tutorials/16.html
+http://pentestmonkey.net/category/cheat-sheet/shell
+https://github.com/GDSSecurity/Windows-Exploit-Suggester
+https://github.com/PenturaLabs/Linux_Exploit_Suggester
+https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+http://www.offensive-security.com/metasploit-unleashed/Main_Page
+I also read the hackers playbook, the Metasploit unleashed book, and the Penetration Testing book by Georgia Weidman.
+These are all very good resources.
+

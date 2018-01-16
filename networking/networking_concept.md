@@ -66,6 +66,7 @@
   - [Ping](#ping)
 - [Traceroute](#traceroute)
   - [Unix and Windows Traceroute](#unix-and-windows-traceroute)
+- [Common ports](#common-ports)
 
 <!-- /TOC -->
 
@@ -525,3 +526,7 @@ Works differently; might produce different results
 Not only is traceroute a great tool for determining paths through the network, but it is also a pretty decent network mapper.
 
  By carefully examining the output of several runs to different hosts on the same remote network, you can start to notice similarities and differences.
+
+## Common ports
+
+!()[images/common_ports.jpg]
